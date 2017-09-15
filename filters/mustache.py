@@ -1,22 +1,31 @@
 #!/usr/bin/env python
+from pandocfilters import toJSONFilter, Str, stringify
+import pystache, yaml
 
 """
 Pandoc filter to apply mustache templates on regular text.
 """
 
-from pandocfilters import toJSONFilter, Str, stringify
-import pystache, yaml
-
+mustache_files = None
+mustache_hashes = None
+mhash = None
 
 def mustache(key, value, format, meta):
-    mustache_files = list_mustache_files(meta)
+    global mustache_files
+    global mustache_hashes
+    global mhash
+
+    if mustache_files is None:
+        mustache_files = list_mustache_files(meta)
+        if mustache_files is not None:
+            mustache_hashes = [yaml.load(open(file, 'r').read()) for file in mustache_files]
+            mhash = { k: v for mdict in mustache_hashes for k, v in mdict.items() }
+
     # with open('debug.txt', 'a') as the_file:
     #     the_file.write(str(mustache_files))
     #     the_file.write('\n')
-    if key == 'Str' and mustache_files is not None:
-        mustache_hashes = [yaml.load(open(file, 'r').read()) for file in mustache_files]
-        mhash = { k: v for mdict in mustache_hashes for k, v in mdict.items() }
 
+    if key == 'Str' and mhash is not None:
         return Str(pystache.render(value, mhash))
 
 
