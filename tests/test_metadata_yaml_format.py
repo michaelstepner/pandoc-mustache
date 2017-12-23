@@ -98,6 +98,4 @@ mustache:
     output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
 
     # Test output
-    print (template2['path'].read())
-    assert 0
     assert output == "<p>Hello dark world</p>\n"
