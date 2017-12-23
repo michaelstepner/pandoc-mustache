@@ -101,7 +101,7 @@ mustache:
     - {mustachefile2}
 ---
 '''
-    doc['mfiles'] = { "mustachefile": template['path'], "mustachefile2": template2['path'],  }
+    doc['mfiles'] = { "mustachefile": template['path'], "mustachefile2": template2['path'] }
     doc['text'] = 'Hello {{adj}} {{place}}'
     template['content'] = "place: 'world'"
     template2['content'] = "adj: 'dark'"

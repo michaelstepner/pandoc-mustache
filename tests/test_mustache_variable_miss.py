@@ -32,6 +32,3 @@ mustache: {mustachefile}
     # Run pandoc
     with pytest.raises(subprocess.CalledProcessError):
         output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
-
-    # Test output
-    #assert output == "<p>Hello world</p>\n"
