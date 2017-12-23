@@ -1,5 +1,7 @@
-import os
-import subprocess
+"""
+Test that mustache template can be in folder that contains spaces.
+"""
+import os, subprocess
 
 def test_yaml_header_styles(tmpdir):
 

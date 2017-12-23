@@ -1,5 +1,8 @@
+"""
+Test that error is thrown if the document contains a mustache {{variable}} that does not exist
+in the template.
+"""
 import os, subprocess, pytest
-import pystache
 
 def test_yaml_mapping(tmpdir):
 

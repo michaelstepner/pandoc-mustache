@@ -1,3 +1,22 @@
+"""
+Test that the pandoc metadata block containing mustache templates can be in various formats:
+
+---
+mustache: /path/to/file
+---
+
+---
+mustache:
+    - /path/to/file
+---
+
+---
+mustache:
+    - /path/to/file1
+    - /path/to/file2
+---
+
+"""
 import os, subprocess
 
 def test_yaml_mapping(tmpdir):
