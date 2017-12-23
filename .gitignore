@@ -1,3 +1,10 @@
 debug.txt
 filters/metavars.py
 filters/caps.py
+
+### Python (https://www.gitignore.io/api/python) ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Unit test / coverage reports
+.cache
