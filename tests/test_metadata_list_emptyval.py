@@ -2,7 +2,7 @@
 Test that if a list with an empty value for a mustache file is specified in pandoc YAML metadata,
 an error is thrown.
 """
-import os, subprocess, pytest
+import os, subprocess
 
 def test_blank_mustache_list(tmpdir):
 
@@ -25,9 +25,14 @@ mustache:
         myfile.write(doc['metadata'])
         myfile.write(doc['text'])
 
-    # Run pandoc
-    with pytest.raises(subprocess.CalledProcessError):
-        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+    # Run pandoc, assert error
+    try:
+        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        assert 0  # expecting an exception when calling pandoc
+    except subprocess.CalledProcessError as e:
+        assert e.returncode == 83
+        assert "FileNotFoundError" in e.output
+        assert "No such file or directory: ''" in e.output
 
 def test_2el_mustache_list_wblank(tmpdir):
 
@@ -56,6 +61,11 @@ mustache:
         myfile.write(doc['text'])
     template['path'].write(template['content'])
 
-    # Run pandoc
-    with pytest.raises(subprocess.CalledProcessError):
-        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+    # Run pandoc, assert error
+    try:
+        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        assert 0  # expecting an exception when calling pandoc
+    except subprocess.CalledProcessError as e:
+        assert e.returncode == 83
+        assert "FileNotFoundError" in e.output
+        assert "No such file or directory: ''" in e.output

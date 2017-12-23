@@ -2,7 +2,7 @@
 Test that error is thrown if the document contains a mustache {{variable}} that does not exist
 in the template.
 """
-import os, subprocess, pytest
+import os, subprocess
 
 def test_yaml_mapping(tmpdir):
 
@@ -29,6 +29,11 @@ mustache: {mustachefile}
         myfile.write(doc['text'])
     template['path'].write(template['content'])
 
-    # Run pandoc
-    with pytest.raises(subprocess.CalledProcessError):
-        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+    # Run pandoc, assert error
+    try:
+        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        assert 0  # expecting an exception when calling pandoc
+    except subprocess.CalledProcessError as e:
+        assert e.returncode == 83
+        assert "pystache.context.KeyNotFoundError" in e.output
+        assert "Key 'place' not found" in e.output
