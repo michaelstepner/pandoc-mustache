@@ -11,7 +11,7 @@ def prepare(doc):
         then load those templates.
     """
     doc.mustache_files = doc.get_metadata('mustache')
-    if isinstance(doc.mustache_files, basestring):  # process single YAML value stored as string
+    if isinstance(doc.mustache_files, str):  # process single YAML value stored as string
         if not doc.mustache_files:
             doc.mustache_files = None  # switch empty string back to None
         else:
@@ -21,7 +21,7 @@ def prepare(doc):
     #     the_file.write('\n')
     if doc.mustache_files is not None:
         doc.mustache_hashes = [yaml.load(open(file, 'r').read()) for file in doc.mustache_files]
-        doc.mhash = { k: v for mdict in doc.mustache_hashes for k, v in mdict.items() }
+        doc.mhash = { k: v for mdict in doc.mustache_hashes for k, v in mdict.items() }  # combine list of dicts into a single dict
     else:
         doc.mhash = None
 
@@ -29,10 +29,7 @@ def action(elem, doc):
     """ Apply combined mustache template to all strings in document.
     """
     if type(elem) == Str and doc.mhash is not None:
-        try:
-            elem.text = pystache.render(elem.text, doc.mhash)
-        except:
-            pass
+        elem.text = pystache.render(elem.text, doc.mhash)
         return elem
 
 def main(doc=None):
