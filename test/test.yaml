@@ -1,9 +1,0 @@
-firstnum: '72.3'  # a number
-secondnum: '4,272.30'  # formatted number
-firststr: 'blah'  # string
-missingnum: '.'  # missing number
-keyonly: ''
-# commentonly
-keywval: 'key with val'
-keywcomment: ''  # key with comment
-keyvalcomment: 'key val and comment'  # all together now
