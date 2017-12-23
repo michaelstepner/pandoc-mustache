@@ -22,7 +22,7 @@ def test_no_mustache_file(tmpdir):
         myfile.write(doc['text'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./src/pandoc-mustache.py"], universal_newlines=True)
 
     # Test output
     assert output == "<p>Hello {{place}}</p>\n"
@@ -48,7 +48,7 @@ mustache:
         myfile.write(doc['text'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./src/pandoc-mustache.py"], universal_newlines=True)
 
     # Test output
     assert output == "<p>Hello {{place}}</p>\n"
