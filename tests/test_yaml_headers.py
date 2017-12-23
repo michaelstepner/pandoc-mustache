@@ -1,29 +1,103 @@
-import os
-import subprocess
+import os, subprocess
 
-def test_yaml_header_styles(tmpdir):
+def test_yaml_mapping(tmpdir):
+
+    # Define empty dictionaries
+    doc = {}
+    template = {}
 
     # Prepare file names
-    doc = tmpdir.join("document.md")
-    template = tmpdir.join("template.yaml")
+    doc['path'] = tmpdir.join("document.md")
+    template['path'] = tmpdir.join("template.yaml")
 
     # Prepare file contents
-    doc_metadata = '''---
+    doc['metadata'] = '''---
 mustache: {mustachefile}
 ---
 '''
-    doc_text = 'Hello {{place}}'
-    template_content = "place: 'world'"
-    mfiles = { "mustachefile": template }
+    doc['mfiles'] = { "mustachefile": template['path'] }
+    doc['text'] = 'Hello {{place}}'
+    template['content'] = "place: 'world'"
 
     # Write contents to files
-    with open(doc, "a") as myfile:
-        myfile.write(doc_metadata.format(**mfiles))
-        myfile.write(doc_text)
-    template.write(template_content)
+    with open(doc['path'], "a") as myfile:
+        myfile.write(doc['metadata'].format(**doc['mfiles']))
+        myfile.write(doc['text'])
+    template['path'].write(template['content'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc, "--filter", "./filters/mustache.py"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
 
     # Test output
     assert output == "<p>Hello world</p>\n"
+
+def test_yaml_list_1el(tmpdir):
+
+    # Define empty dictionaries
+    doc = {}
+    template = {}
+
+    # Prepare file names
+    doc['path'] = tmpdir.join("document.md")
+    template['path'] = tmpdir.join("template.yaml")
+
+    # Prepare file contents
+    doc['metadata'] = '''---
+mustache:
+    - {mustachefile}
+---
+'''
+    doc['mfiles'] = { "mustachefile": template['path'] }
+    doc['text'] = 'Hello {{place}}'
+    template['content'] = "place: 'world'"
+
+    # Write contents to files
+    with open(doc['path'], "a") as myfile:
+        myfile.write(doc['metadata'].format(**doc['mfiles']))
+        myfile.write(doc['text'])
+    template['path'].write(template['content'])
+
+    # Run pandoc
+    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+
+    # Test output
+    assert output == "<p>Hello world</p>\n"
+
+def test_yaml_list_2el(tmpdir):
+
+    # Define empty dictionaries
+    doc = {}
+    template = {}
+    template2 = {}
+
+    # Prepare file names
+    doc['path'] = tmpdir.join("document.md")
+    template['path'] = tmpdir.join("template.yaml")
+    template2['path'] = tmpdir.join("template2.yaml")
+
+    # Prepare file contents
+    doc['metadata'] = '''---
+mustache:
+    - {mustachefile}
+    - {mustachefile2}
+---
+'''
+    doc['mfiles'] = { "mustachefile": template['path'], "mustachefile2": template2['path'],  }
+    doc['text'] = 'Hello {{adj}} {{place}}'
+    template['content'] = "place: 'world'"
+    template2['content'] = "adj: 'dark'"
+
+    # Write contents to files
+    with open(doc['path'], "a") as myfile:
+        myfile.write(doc['metadata'].format(**doc['mfiles']))
+        myfile.write(doc['text'])
+    template['path'].write(template['content'])
+    template2['path'].write(template2['content'])
+
+    # Run pandoc
+    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./filters/mustache.py"], universal_newlines=True)
+
+    # Test output
+    print (template2['path'].read())
+    assert 0
+    assert output == "<p>Hello dark world</p>\n"
