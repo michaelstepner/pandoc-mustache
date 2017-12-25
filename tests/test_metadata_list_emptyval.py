@@ -2,7 +2,7 @@
 Test that if a list with an empty value for a mustache file is specified in pandoc YAML metadata,
 an error is thrown.
 """
-import os, subprocess
+import os, subprocess, sys
 
 def test_blank_mustache_list(tmpdir):
 
@@ -31,7 +31,10 @@ mustache:
         assert 0  # expecting an exception when calling pandoc
     except subprocess.CalledProcessError as e:
         assert e.returncode == 83
-        assert "FileNotFoundError" in e.output
+        if (sys.version_info > (3, 0)):  # Python 3
+            assert "FileNotFoundError" in e.output
+        else:
+            assert "IOError" in e.output
         assert "No such file or directory: ''" in e.output
 
 def test_2el_mustache_list_wblank(tmpdir):
@@ -67,5 +70,8 @@ mustache:
         assert 0  # expecting an exception when calling pandoc
     except subprocess.CalledProcessError as e:
         assert e.returncode == 83
-        assert "FileNotFoundError" in e.output
+        if (sys.version_info > (3, 0)):  # Python 3
+            assert "FileNotFoundError" in e.output
+        else:
+            assert "IOError" in e.output
         assert "No such file or directory: ''" in e.output
