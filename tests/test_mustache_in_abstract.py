@@ -20,7 +20,7 @@ mustache: {mustachefile}
 ---
 '''  # quadruple curly brace will be printed as double curly brace, doubling is escaping from .format
     doc['mfiles'] = { "mustachefile": template['path'] }
-    doc['text'] = "It's {{who}}."
+    doc['text'] = "It is {{who}}."
     template['content'] = """place: 'world'
 who: 'me'
 """
@@ -40,5 +40,5 @@ who: 'me'
 == Abstract
 Hello world.
 
-It's me.
+It is me.
 """
