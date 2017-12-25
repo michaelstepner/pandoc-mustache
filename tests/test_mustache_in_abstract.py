@@ -26,13 +26,13 @@ who: 'me'
 """
 
     # Write contents to files
-    with open(doc['path'], "a") as myfile:
+    with open(doc['path'].strpath, "a") as myfile:
         myfile.write(doc['metadata'].format(**doc['mfiles']))
         myfile.write(doc['text'])
     template['path'].write(template['content'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./src/pandoc-mustache.py", "--to=asciidoc", "--standalone"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py", "--to=asciidoc", "--standalone"], universal_newlines=True)
 
     # Test output
     print (output)

@@ -19,13 +19,13 @@ mustache: {mustachefile}
     mfiles = { "mustachefile": template }
 
     # Write contents to files
-    with open(doc, "a") as myfile:
+    with open(doc.strpath, "a") as myfile:
         myfile.write(doc_metadata.format(**mfiles))
         myfile.write(doc_text)
     template.write(template_content)
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc.strpath, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True)
 
     # Test output
     assert output == "<p>Hello world</p>\n"

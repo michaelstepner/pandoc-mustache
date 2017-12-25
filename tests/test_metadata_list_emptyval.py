@@ -21,13 +21,13 @@ mustache:
     doc['text'] = 'Hello {{place}}'
 
     # Write contents to files
-    with open(doc['path'], "a") as myfile:
+    with open(doc['path'].strpath, "a") as myfile:
         myfile.write(doc['metadata'])
         myfile.write(doc['text'])
 
     # Run pandoc, assert error
     try:
-        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./src/pandoc-mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
         assert 0  # expecting an exception when calling pandoc
     except subprocess.CalledProcessError as e:
         assert e.returncode == 83
@@ -56,14 +56,14 @@ mustache:
     template['content'] = "place: 'world'"
 
     # Write contents to files
-    with open(doc['path'], "a") as myfile:
+    with open(doc['path'].strpath, "a") as myfile:
         myfile.write(doc['metadata'].format(**doc['mfiles']))
         myfile.write(doc['text'])
     template['path'].write(template['content'])
 
     # Run pandoc, assert error
     try:
-        output = subprocess.check_output(["pandoc", doc['path'], "--filter", "./src/pandoc-mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
         assert 0  # expecting an exception when calling pandoc
     except subprocess.CalledProcessError as e:
         assert e.returncode == 83
