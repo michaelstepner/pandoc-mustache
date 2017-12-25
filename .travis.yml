@@ -7,12 +7,11 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-  # - "3.6-dev" # 3.6 development branch
-  # - "3.7-dev" # 3.7 development branch
-  # - "nightly" # currently points to 3.7-dev
-  # pypy (version info from [Changelogs — PyPy documentation](http://doc.pypy.org/en/latest/index-of-whatsnew.html))
-  # - "pypy"  # PyPy2.7 5.3.1 (CPython 2.7 compatible)
-  # - "pypy3" # PyPy3 2.4.0 (CPython 3.2 compatible)
+  - "3.6-dev" # 3.6 development branch
+  - "3.7-dev" # 3.7 development branch
+  - "nightly" # Travis CI supports a special version name nightly, which points to a recent development version of CPython build
+  - "pypy"
+  - "pypy3"
 # https://groups.google.com/forum/?fromgroups#!topic/pandoc-discuss/uGASAhRydfI
 env:
   - pandocVersion=1.19.2.1
@@ -41,7 +40,7 @@ install:
   - wget $downloadUrl &&
     sudo dpkg -i $file
   # latest pip dropped support for py3.2, which is the version of python in pypy3
-  - if [[ "$TRAVIS_PYTHON_VERSION" != "pypy3" ]]; then pip install -U pip; fi
+  # - if [[ "$TRAVIS_PYTHON_VERSION" != "pypy3" ]]; then pip install -U pip; fi
   - pip install -r requirements.txt
 before_script:
   # pasteurize for py2 only
