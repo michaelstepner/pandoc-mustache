@@ -35,7 +35,7 @@ mustache:
             assert "FileNotFoundError" in e.output
         else:
             assert "IOError" in e.output
-        assert "No such file or directory: ''" in e.output
+        assert "No such file or directory:" in e.output
 
 def test_2el_mustache_list_wblank(tmpdir):
 
@@ -74,4 +74,4 @@ mustache:
             assert "FileNotFoundError" in e.output
         else:
             assert "IOError" in e.output
-        assert "No such file or directory: ''" in e.output
+        assert "No such file or directory:" in e.output
