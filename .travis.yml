@@ -47,7 +47,7 @@ before_script:
   # pasteurize for py2 only
   - |
     if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" || "$TRAVIS_PYTHON_VERSION" == "pypy" ]]; then
-      pasteurize -wn .
+      pasteurize -wn ./src
     fi
 # commands to run tests
 script:
