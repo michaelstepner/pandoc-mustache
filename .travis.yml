@@ -3,10 +3,10 @@ language: python
 cache: pip
 # build matrix: different python and pandoc versions
 python:
-  # - "2.7"
-  # - "3.3"
-  # - "3.4"
-  # - "3.5"
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
   - "3.6"
   # - "3.6-dev" # 3.6 development branch
   # - "3.7-dev" # 3.7 development branch
@@ -16,7 +16,7 @@ python:
   # - "pypy3" # PyPy3 2.4.0 (CPython 3.2 compatible)
 # https://groups.google.com/forum/?fromgroups#!topic/pandoc-discuss/uGASAhRydfI
 env:
-  - pandocVersion=1.19.2.1
+  - pandocVersion=1.19.2.4
   - pandocVersion=latest
 matrix:
   allow_failures:
