@@ -4,18 +4,18 @@
 
 The **pandoc-mustache** filter allows you to put variables into your pandoc document text, with their values stored in a separate file. When you run `pandoc` the variables are replaced with their values.
 
-This pandoc filter is not a complete implementation of the [Mustache template spec](https://mustache.github.io/). Only variable replacement is supported: other [tag types](https://mustache.github.io/mustache.5.html#TAG-TYPES) are not supported.
+*Technical note:* This pandoc filter is not a complete implementation of the [Mustache template spec](https://mustache.github.io/). Only variable replacement is supported: other [tag types](https://mustache.github.io/mustache.5.html#TAG-TYPES) are not currently supported.
 
 ## Example
 
 This document, `document.md`:
-> \-\-\-
-> mustache: ./le_gaps.yaml
-> \-\-\-
+> \-\-\-  
+> mustache: ./le_gaps.yaml  
+> \-\-\-  
 > The richest American men live {{diff_le_richpoor_men}} years longer than the poorest men, while the richest American women live {{diff_le_richpoor_men}} years longer than the poorest women.
 
 Combined with this dictionary, `le_gaps.yaml`:
-> diff_le_richpoor_men: "14.6"
+> diff_le_richpoor_men: "14.6"  
 > diff_le_richpoor_women: "10.1"
 
 Will be converted by `pandoc document.md --filter pandoc-mustache` to:
@@ -42,7 +42,7 @@ Python 2.7, 3.4+, pypy, and pypy3 are supported.
 	temperature: '7'
 	```
 
-3. The pandoc document points to one or many YAML files defining the "mustache" variables, using the mustache field in a [YAML metadata block](https://pandoc.org/MANUAL.html#metadata-blocks). This block is typically placed at the top of the document. Absolute paths and relative paths are supported: relative paths are evaluated relative to the working directory where `pandoc` is being run.
+3. The pandoc document containing the mustache variables points to the YAML file (or files) which contain the variable definitions. These files are indicated using the mustache field in a [YAML metadata block](https://pandoc.org/MANUAL.html#metadata-blocks), typically placed at the top of the pandoc document. Absolute paths and relative paths are supported: relative paths are evaluated relative to the working directory where `pandoc` is being run.
 
     An example:
 	```yaml
@@ -99,7 +99,7 @@ All of the files in this repository are released to the public domain under a [C
 
 ## Acknowledgements
 
-This pandoc filter uses Sergio Correia's [panflute](https://github.com/sergiocorreia/panflute) package. The [panflute](https://github.com/sergiocorreia/panflute) repository also served as an inspiration for the organization of this repository.
+This pandoc filter was created using Sergio Correia's [panflute](https://github.com/sergiocorreia/panflute) package. The [panflute](https://github.com/sergiocorreia/panflute) repository also served as an inspiration for the organization of this repository.
 
 ### Related Filters
 
