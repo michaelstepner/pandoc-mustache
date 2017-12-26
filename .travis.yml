@@ -1,4 +1,4 @@
-# os: linux and sudo: false is assumed, which means it is using container-based Ubuntu 12.04
+# os: linux and sudo: false is assumed, which means it is using container-based Ubuntu
 language: python
 cache: pip
 # build matrix: different python and pandoc versions
@@ -10,6 +10,7 @@ python:
   - "3.6-dev" # 3.6 development branch
   - "3.7-dev" # 3.7 development branch
   - "nightly" # Travis CI supports a special version name nightly, which points to a recent development version of CPython build
+  # pypy (version info from [Changelogs — PyPy documentation](http://doc.pypy.org/en/latest/index-of-whatsnew.html))
   - "pypy"
   - "pypy3"
 # https://groups.google.com/forum/?fromgroups#!topic/pandoc-discuss/uGASAhRydfI
@@ -39,13 +40,13 @@ install:
   # pandoc
   - wget $downloadUrl &&
     sudo dpkg -i $file
-  - pip install -r requirements.txt
+  - pip install -e .
 before_script:
-  # pasteurize for py2 only
-  - |
-    if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" || "$TRAVIS_PYTHON_VERSION" == "pypy" ]]; then
-      pasteurize -wn ./src
-    fi
+  # pasteurize for py2 only (disabled because Python code is currently universal as-written)
+  # - |
+  #   if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" || "$TRAVIS_PYTHON_VERSION" == "pypy" ]]; then
+  #     pasteurize -wn ./pandoc_mustache/pandoc_mustache.py
+  #   fi
 # commands to run tests
 script:
   - pytest
