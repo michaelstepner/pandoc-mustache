@@ -33,7 +33,7 @@ setup(
     # https://packaging.python.org/en/latest/single_source_version.html
     version=version,
 
-    description='Pandoc filter for variable substitution using Mustache syntax ',
+    description='Pandoc filter for variable substitution using Mustache syntax',
     long_description=long_description,
 
     # The project's main homepage.
@@ -54,9 +54,8 @@ setup(
         #   5 - Production/Stable
         'Development Status :: 4 - Beta',
 
-        'Environment :: Console',
-
         # Indicate who your project is intended for
+        'Environment :: Console',
         'Intended Audience :: End Users/Desktop',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
