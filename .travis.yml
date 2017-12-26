@@ -50,3 +50,22 @@ before_script:
 # commands to run tests
 script:
   - pytest
+before_deploy:
+  # create README.rst for PyPI README
+  - pandoc -f markdown+autolink_bare_uris-fancy_lists-implicit_header_references -M date="`date "+%B %e, %Y"`" --toc -s -o README.rst README.md
+  # debugging rst output
+  ## install dependencies for rst to html
+  - pip install -e .[pypi]
+  ## test if the rst output is valid
+  - rst2html.py README.rst > README.html
+deploy:
+  provider: pypi
+  user: michaelstepner
+  password:
+    secure: e+yhZAG6zvaM9U/7cMvsgW4lrzwGYmcYmPRUsFMrLt0TkoJvDU/RYsOdZi9orfwbPwQt3AueDeebYm0Mxi/ZYX0L+les7BryeJqxYZZEettMzXpdHVxT2yI6oK2yXsC/zh10U9m4tMfXQfPeZN+9KuFnmEJUy7f3bq6yMIHL/63xc51DidG+ZJ+hKWijuzRq+WsB5Is6ChEa5JDrzAUD+1dmBp9L1oXhC9H9jUIKGFe8MzRR0yJE+X85rKIUoeqqZ74e3tx/bedjF2u0mCCsmyC3YpgY46iuUG6qC4nMXdoHgs+oOmCMQFdoERWkcO2XlGhPwcAPZ85Fmouu2RWo1Wg1094tzPYz09X05PWO4nshUXwX2riTnC+HJarysU7QlhB35yqFwqse9XOn5aIyIkmrTN2LykMKdsTLqjr6cVRsawlZvDzhim5YeLt+fQERGTE/yvRUDgmMh5Z3s+UgAF4KTnkccSb4TEU/NkmzSRSGoxuZi4l+r0ApKh7ss8XPpRhsHOb+XLi7I9mTA2lrhNWK6Qk0cP1ovtOrgQiWjFjQGIYuz+b19GCy3DEfsY1BbMAtlkDsK3q+bEcWe7FlM1kwEk5pFiR+xO8Qj2kFpZGiDhZoPjsMeN3OTZpEOe463YhpE1YkRYLJxsQDOKf7QLhRobCmoA6Z6LWOiSfBq44=
+  distributions: "sdist bdist_wheel"
+  skip_cleanup: true
+  on:
+    tags: true
+    python: "3.6"
+    condition: $pandocVersion = latest
