@@ -1,4 +1,4 @@
-# os: linux and sudo: false is assumed, which means it is using container-based Ubuntu 12.04
+# os: linux and sudo: false is assumed, which means it is using container-based Ubuntu
 language: python
 cache: pip
 # build matrix: different python and pandoc versions
@@ -10,6 +10,7 @@ python:
   - "3.6-dev" # 3.6 development branch
   - "3.7-dev" # 3.7 development branch
   - "nightly" # Travis CI supports a special version name nightly, which points to a recent development version of CPython build
+  # pypy (version info from [Changelogs — PyPy documentation](http://doc.pypy.org/en/latest/index-of-whatsnew.html))
   - "pypy"
   - "pypy3"
 # https://groups.google.com/forum/?fromgroups#!topic/pandoc-discuss/uGASAhRydfI
@@ -39,13 +40,32 @@ install:
   # pandoc
   - wget $downloadUrl &&
     sudo dpkg -i $file
-  - pip install -r requirements.txt
+  - pip install -e .
 before_script:
-  # pasteurize for py2 only
-  - |
-    if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" || "$TRAVIS_PYTHON_VERSION" == "pypy" ]]; then
-      pasteurize -wn ./src
-    fi
+  # pasteurize for py2 only (disabled because Python code is currently universal as-written)
+  # - |
+  #   if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" || "$TRAVIS_PYTHON_VERSION" == "pypy" ]]; then
+  #     pasteurize -wn ./pandoc_mustache/pandoc_mustache.py
+  #   fi
 # commands to run tests
 script:
   - pytest
+before_deploy:
+  # create README.rst for PyPI README
+  - pandoc -f markdown+autolink_bare_uris-fancy_lists-implicit_header_references -M date="`date "+%B %e, %Y"`" --toc -s -o README.rst README.md
+  # debugging rst output
+  ## install dependencies for rst to html
+  - pip install -e .[pypi]
+  ## test if the rst output is valid
+  - rst2html.py README.rst > README.html
+deploy:
+  provider: pypi
+  user: michaelstepner
+  password:
+    secure: HI/2sdV0lcuZ9llZr5TUfxVASz8hYjYdehvxRKKKrVBeBIfaIOus6Cysh5hRorqy/wssXy4tA3Q+SzqElhbv1NECjfzWyGqwSiZWwvz5wiAFQlHVVvG98kcCJDXqI3ez8BHJgCz8WSPu5jeBHGhwweJk3DIGw4vhZRcsN+tzWSlPkyZ4TizGoSEF2P4P7k+ostryPID75lQ71LgAyE/vzbdkqmJvZ/UY9OHZU17n1xYTxpKV+bKAQoHh+TWulb7fiGP0QiZdi96meDU9huJIsjBDSJj71WGAir3lh/96itM+kHNgPn5A7Q9LwH207tVtMQOD3cxWvaDnpFmXJH8e0xWsyQv3zS1sH10X+3PoM6xAOh42eCOKYjrloF/6C52TOlieBVzT1l3siCk/fg72x/aqffwkluz9VMUDQC05abbyewTBFPLOdn40vhy6nw8tuXlR5ahBj8YUVEdU5dMMLR3tDtFTMBAnAALi2vTtSvZL2uYooFjUQ0e7csiSl7dVJvnkHNNTGw08q0u1MZK1D1tpgZk/bnFzrBHwEQVt18/GLIbompam9OWFTnGsAfDngBxiNW51HkztTuieVPyCKyWJTvg8xTynqqNj2Juva/DvkzNPH6LBj5WCM61wbR9LO6EMUvK5ihUu2YTw3enwGHD77d08G5eyWkPpYFWcBMA=
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  on:
+    tags: true
+    python: '3.6'
+    condition: "$pandocVersion = latest"

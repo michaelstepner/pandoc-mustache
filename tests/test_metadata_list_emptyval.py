@@ -27,7 +27,7 @@ mustache:
 
     # Run pandoc, assert error
     try:
-        output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache"], universal_newlines=True, stderr=subprocess.STDOUT)
         assert 0  # expecting an exception when calling pandoc
     except subprocess.CalledProcessError as e:
         assert e.returncode == 83
@@ -66,7 +66,7 @@ mustache:
 
     # Run pandoc, assert error
     try:
-        output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True, stderr=subprocess.STDOUT)
+        output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache"], universal_newlines=True, stderr=subprocess.STDOUT)
         assert 0  # expecting an exception when calling pandoc
     except subprocess.CalledProcessError as e:
         assert e.returncode == 83

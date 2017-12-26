@@ -1,10 +1,15 @@
+README.rst
+README.html
 debug.txt
-filters/metavars.py
-filters/caps.py
 
 ### Python (https://www.gitignore.io/api/python) ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
+
+# Distribution / packaging
+dist/
+*.egg-info/
 
 # Unit test / coverage reports
 .cache
