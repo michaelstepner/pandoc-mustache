@@ -3,7 +3,6 @@
 Pandoc filter to apply mustache templates on regular text.
 """
 from past.builtins import basestring
-
 from panflute import *
 import pystache, yaml
 
