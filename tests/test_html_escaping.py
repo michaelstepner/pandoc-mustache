@@ -29,7 +29,7 @@ mustache: {mustachefile}
     template['path'].write(template['content'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py", "--to=plain"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache", "--to=plain"], universal_newlines=True)
 
     # Test output
     assert output == "Hello world ' universe\n"
@@ -60,7 +60,7 @@ mustache: {mustachefile}
     template['path'].write(template['content'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py", "--to=plain"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache", "--to=plain"], universal_newlines=True)
 
     # Test output
     assert output == "Hello world > universe\n"
@@ -91,7 +91,7 @@ mustache: {mustachefile}
     template['path'].write(template['content'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py", "--to=plain"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache", "--to=plain"], universal_newlines=True)
 
     # Test output
     assert output == "Hello world & universe\n"

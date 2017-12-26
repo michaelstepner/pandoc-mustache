@@ -32,7 +32,7 @@ who: 'me'
     template['path'].write(template['content'])
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "./src/pandoc-mustache.py", "--to=asciidoc", "--standalone"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache", "--to=asciidoc", "--standalone"], universal_newlines=True)
 
     # Test output
     print (output)

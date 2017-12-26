@@ -25,7 +25,7 @@ mustache: {mustachefile}
     template.write(template_content)
 
     # Run pandoc
-    output = subprocess.check_output(["pandoc", doc.strpath, "--filter", "./src/pandoc-mustache.py"], universal_newlines=True)
+    output = subprocess.check_output(["pandoc", doc.strpath, "--filter", "pandoc-mustache"], universal_newlines=True)
 
     # Test output
     assert output == "<p>Hello world</p>\n"
