@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 Pandoc filter to apply mustache templates on regular text.
 """
