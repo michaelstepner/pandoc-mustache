@@ -1,6 +1,6 @@
 # pandoc-mustache: Variable Substitution in Pandoc
 
-[![Build Status](https://travis-ci.org/michaelstepner/pandoc-mustache.svg?branch=master)](https://travis-ci.org/michaelstepner/pandoc-mustache)
+[![Build Status](https://travis-ci.org/michaelstepner/pandoc-mustache.svg?branch=develop)](https://travis-ci.org/michaelstepner/pandoc-mustache)
 
 The **pandoc-mustache** filter allows you to put variables into your pandoc document text, with their values stored in a separate file. When you run `pandoc` the variables are replaced with their values.
 
