@@ -62,10 +62,10 @@ deploy:
   provider: pypi
   user: michaelstepner
   password:
-    secure: e+yhZAG6zvaM9U/7cMvsgW4lrzwGYmcYmPRUsFMrLt0TkoJvDU/RYsOdZi9orfwbPwQt3AueDeebYm0Mxi/ZYX0L+les7BryeJqxYZZEettMzXpdHVxT2yI6oK2yXsC/zh10U9m4tMfXQfPeZN+9KuFnmEJUy7f3bq6yMIHL/63xc51DidG+ZJ+hKWijuzRq+WsB5Is6ChEa5JDrzAUD+1dmBp9L1oXhC9H9jUIKGFe8MzRR0yJE+X85rKIUoeqqZ74e3tx/bedjF2u0mCCsmyC3YpgY46iuUG6qC4nMXdoHgs+oOmCMQFdoERWkcO2XlGhPwcAPZ85Fmouu2RWo1Wg1094tzPYz09X05PWO4nshUXwX2riTnC+HJarysU7QlhB35yqFwqse9XOn5aIyIkmrTN2LykMKdsTLqjr6cVRsawlZvDzhim5YeLt+fQERGTE/yvRUDgmMh5Z3s+UgAF4KTnkccSb4TEU/NkmzSRSGoxuZi4l+r0ApKh7ss8XPpRhsHOb+XLi7I9mTA2lrhNWK6Qk0cP1ovtOrgQiWjFjQGIYuz+b19GCy3DEfsY1BbMAtlkDsK3q+bEcWe7FlM1kwEk5pFiR+xO8Qj2kFpZGiDhZoPjsMeN3OTZpEOe463YhpE1YkRYLJxsQDOKf7QLhRobCmoA6Z6LWOiSfBq44=
-  distributions: "sdist bdist_wheel"
+    secure: HI/2sdV0lcuZ9llZr5TUfxVASz8hYjYdehvxRKKKrVBeBIfaIOus6Cysh5hRorqy/wssXy4tA3Q+SzqElhbv1NECjfzWyGqwSiZWwvz5wiAFQlHVVvG98kcCJDXqI3ez8BHJgCz8WSPu5jeBHGhwweJk3DIGw4vhZRcsN+tzWSlPkyZ4TizGoSEF2P4P7k+ostryPID75lQ71LgAyE/vzbdkqmJvZ/UY9OHZU17n1xYTxpKV+bKAQoHh+TWulb7fiGP0QiZdi96meDU9huJIsjBDSJj71WGAir3lh/96itM+kHNgPn5A7Q9LwH207tVtMQOD3cxWvaDnpFmXJH8e0xWsyQv3zS1sH10X+3PoM6xAOh42eCOKYjrloF/6C52TOlieBVzT1l3siCk/fg72x/aqffwkluz9VMUDQC05abbyewTBFPLOdn40vhy6nw8tuXlR5ahBj8YUVEdU5dMMLR3tDtFTMBAnAALi2vTtSvZL2uYooFjUQ0e7csiSl7dVJvnkHNNTGw08q0u1MZK1D1tpgZk/bnFzrBHwEQVt18/GLIbompam9OWFTnGsAfDngBxiNW51HkztTuieVPyCKyWJTvg8xTynqqNj2Juva/DvkzNPH6LBj5WCM61wbR9LO6EMUvK5ihUu2YTw3enwGHD77d08G5eyWkPpYFWcBMA=
+  distributions: sdist bdist_wheel
   skip_cleanup: true
   on:
     tags: true
-    python: "3.6"
-    condition: $pandocVersion = latest
+    python: '3.6'
+    condition: "$pandocVersion = latest"
