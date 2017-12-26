@@ -21,7 +21,7 @@ except (IOError):
 
 # Import version number
 version = {}
-with open("panstache/version.py") as fp:
+with open("pandoc_mustache/version.py") as fp:
     exec(fp.read(), version)
 version = version['__version__']
 
@@ -88,7 +88,7 @@ setup(
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
-    py_modules=["panstache"],
+    py_modules=["pandoc_mustache"],
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
@@ -129,7 +129,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'pandoc-mustache=panstache.panstache:main',
+            'pandoc-mustache=pandoc_mustache.pandoc_mustache:main',
         ],
     },
 )
