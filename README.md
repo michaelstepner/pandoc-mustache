@@ -64,8 +64,8 @@ Python 2.7, 3.4+, pypy, and pypy3 are supported.
 	title: My Report
 	author: Jane Smith
 	mustache:
-		- ./vars.yaml
-		- ./additional_vars.yaml
+	- ./vars.yaml
+	- ./additional_vars.yaml
 	---
 	The temperature in {{place}} was {{temperature}} degrees.
 	The humidity was {{humidity}}%.
