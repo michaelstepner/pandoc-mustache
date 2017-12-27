@@ -1,5 +1,8 @@
 # pandoc-mustache: Variable Substitution in Pandoc
 
+[![Development Status](https://img.shields.io/pypi/status/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
+[![PyPI version](https://img.shields.io/pypi/v/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
+[![Python version](https://img.shields.io/pypi/pyversions/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
 [![Build Status](https://travis-ci.org/michaelstepner/pandoc-mustache.svg?branch=master)](https://travis-ci.org/michaelstepner/pandoc-mustache)
 
 The **pandoc-mustache** filter allows you to put variables into your pandoc document text, with their values stored in a separate file. When you run `pandoc` the variables are replaced with their values.
@@ -8,17 +11,22 @@ The **pandoc-mustache** filter allows you to put variables into your pandoc docu
 
 ## Example
 
-This document, `document.md`:
+This document, in `document.md`:
 
-> \-\-\-  
-> mustache: ./le_gaps.yaml  
-> \-\-\-  
-> The richest American men live {{diff_le_richpoor_men}} years longer than the poorest men, while the richest American women live {{diff_le_richpoor_men}} years longer than the poorest women.
+```
+---
+mustache: ./le_gaps.yaml
+---
+The richest American men live {{diff_le_richpoor_men}} years longer than the poorest men,
+while the richest American women live {{diff_le_richpoor_women}} years longer than the poorest women.
+```
 
-Combined with this dictionary, `le_gaps.yaml`:
+Combined with these variable definitions, in `le_gaps.yaml`:
 
-> diff_le_richpoor_men: "14.6"  
-> diff_le_richpoor_women: "10.1"
+```yaml
+diff_le_richpoor_men: "14.6"
+diff_le_richpoor_women: "10.1"
+```
 
 Will be converted by `pandoc document.md --filter pandoc-mustache` to:
 
@@ -48,6 +56,7 @@ Python 2.7, 3.4+, pypy, and pypy3 are supported.
 3. The pandoc document containing the mustache variables points to the YAML file (or files) which contain the variable definitions. These files are indicated using the mustache field in a [YAML metadata block](https://pandoc.org/MANUAL.html#metadata-blocks), typically placed at the top of the pandoc document. Absolute paths and relative paths are supported: relative paths are evaluated relative to the working directory where `pandoc` is being run.
 
     An example:
+
 	```yaml
 	---
 	title: My Report
@@ -56,16 +65,16 @@ Python 2.7, 3.4+, pypy, and pypy3 are supported.
 	---
 	The temperature in {{place}} was {{temperature}} degrees.
 	```
-	
+
 	Or, with more than one file:
-	
+
 	```yaml
 	---
 	title: My Report
 	author: Jane Smith
 	mustache:
-		- ./vars.yaml
-		- ./additional_vars.yaml
+	- ./vars.yaml
+	- ./additional_vars.yaml
 	---
 	The temperature in {{place}} was {{temperature}} degrees.
 	The humidity was {{humidity}}%.

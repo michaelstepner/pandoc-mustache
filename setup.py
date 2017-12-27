@@ -52,7 +52,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
 
         # Indicate who your project is intended for
         'Environment :: Console',
@@ -83,11 +83,11 @@ setup(
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    # packages=find_packages(exclude=['contrib', 'docs', 'tests', 'examples']),
+    packages=find_packages(exclude=['contrib', 'docs', 'tests', 'examples']),
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
-    py_modules=["pandoc_mustache"],
+    # py_modules=["pandoc_mustache"],
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
