@@ -1,5 +1,8 @@
 # pandoc-mustache: Variable Substitution in Pandoc
 
+[![Development Status](https://img.shields.io/pypi/status/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
+[![PyPI version](https://img.shields.io/pypi/v/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
+[![Python version](https://img.shields.io/pypi/pyversions/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
 [![Build Status](https://travis-ci.org/michaelstepner/pandoc-mustache.svg?branch=develop)](https://travis-ci.org/michaelstepner/pandoc-mustache)
 
 The **pandoc-mustache** filter allows you to put variables into your pandoc document text, with their values stored in a separate file. When you run `pandoc` the variables are replaced with their values.
@@ -48,6 +51,7 @@ Python 2.7, 3.4+, pypy, and pypy3 are supported.
 3. The pandoc document containing the mustache variables points to the YAML file (or files) which contain the variable definitions. These files are indicated using the mustache field in a [YAML metadata block](https://pandoc.org/MANUAL.html#metadata-blocks), typically placed at the top of the pandoc document. Absolute paths and relative paths are supported: relative paths are evaluated relative to the working directory where `pandoc` is being run.
 
     An example:
+
 	```yaml
 	---
 	title: My Report
@@ -56,9 +60,9 @@ Python 2.7, 3.4+, pypy, and pypy3 are supported.
 	---
 	The temperature in {{place}} was {{temperature}} degrees.
 	```
-	
+
 	Or, with more than one file:
-	
+
 	```yaml
 	---
 	title: My Report
