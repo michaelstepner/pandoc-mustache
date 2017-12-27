@@ -13,15 +13,20 @@ The **pandoc-mustache** filter allows you to put variables into your pandoc docu
 
 This document, `document.md`:
 
-> \-\-\-  
-> mustache: ./le_gaps.yaml  
-> \-\-\-  
-> The richest American men live {{diff_le_richpoor_men}} years longer than the poorest men, while the richest American women live {{diff_le_richpoor_men}} years longer than the poorest women.
+```
+---
+mustache: ./le_gaps.yaml
+---
+The richest American men live {{diff_le_richpoor_men}} years longer than the poorest men,
+while the richest American women live {{diff_le_richpoor_women}} years longer than the poorest women.
+```
 
-Combined with this dictionary, `le_gaps.yaml`:
+Combined with these variable definitions, in **`le_gaps.yaml`**:
 
-> diff_le_richpoor_men: "14.6"  
-> diff_le_richpoor_women: "10.1"
+```yaml
+diff_le_richpoor_men: "14.6"
+diff_le_richpoor_women: "10.1"
+```
 
 Will be converted by `pandoc document.md --filter pandoc-mustache` to:
 
