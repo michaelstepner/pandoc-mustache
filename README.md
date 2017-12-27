@@ -11,7 +11,7 @@ The **pandoc-mustache** filter allows you to put variables into your pandoc docu
 
 ## Example
 
-This document, `document.md`:
+This document, in `document.md`:
 
 ```
 ---
@@ -21,7 +21,7 @@ The richest American men live {{diff_le_richpoor_men}} years longer than the poo
 while the richest American women live {{diff_le_richpoor_women}} years longer than the poorest women.
 ```
 
-Combined with these variable definitions, in **`le_gaps.yaml`**:
+Combined with these variable definitions, in `le_gaps.yaml`:
 
 ```yaml
 diff_le_richpoor_men: "14.6"
