@@ -19,7 +19,7 @@ def prepare(doc):
     #     the_file.write(str(doc.mustache_files))
     #     the_file.write('\n')
     if doc.mustache_files is not None:
-        doc.mustache_hashes = [yaml.load(open(file, 'r').read(), Loader=yaml.SafeLoader)) for file in doc.mustache_files]
+        doc.mustache_hashes = [yaml.load(open(file, 'r').read(), Loader=yaml.SafeLoader) for file in doc.mustache_files]
         doc.mhash = { k: v for mdict in doc.mustache_hashes for k, v in mdict.items() }  # combine list of dicts into a single dict
         doc.mrenderer = pystache.Renderer(escape=lambda u: u, missing_tags='strict')
     else:
