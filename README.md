@@ -5,7 +5,7 @@
 [![Python version](https://img.shields.io/pypi/pyversions/pandoc-mustache.svg)](https://pypi.python.org/pypi/pandoc-mustache/)
 [![Build Status](https://travis-ci.org/michaelstepner/pandoc-mustache.svg?branch=master)](https://travis-ci.org/michaelstepner/pandoc-mustache)
 
-The **pandoc-mustache** filter allows you to put variables into your pandoc document text, with their values stored in a separate file. When you run `pandoc` the variables are replaced with their values.
+The **pandoc-mustache** filter allows you to put variables into your pandoc document text, with their values stored in a separate file or within a documents YAML metadata block. When you run `pandoc` the variables are replaced with their values.
 
 *Technical note:* This pandoc filter is not a complete implementation of the [Mustache template spec](https://mustache.github.io/). Only variable replacement is supported: other [tag types](https://mustache.github.io/mustache.5.html#TAG-TYPES) are not currently supported.
 
@@ -25,6 +25,29 @@ Combined with these variable definitions, in `le_gaps.yaml`:
 
 ```yaml
 diff_le_richpoor_men: "14.6"
+diff_le_richpoor_women: "10.1"
+```
+
+Will be converted by `pandoc document.md --filter pandoc-mustache` to:
+
+> The richest American men live 14.6 years longer than the poorest men, while the richest American women live 10.1 years longer than the poorest women.
+
+## Example using variables in the documents YAML metadata block and external yaml
+
+This document, in `document.md`:
+
+```
+---
+diff_le_richpoor_men: "14.6"
+mustache: ./le_gaps.yaml
+---
+The richest American men live {{diff_le_richpoor_men}} years longer than the poorest men,
+while the richest American women live {{diff_le_richpoor_women}} years longer than the poorest women.
+```
+
+Combined with these variable definitions, in `le_gaps.yaml`:
+
+```yaml
 diff_le_richpoor_women: "10.1"
 ```
 
