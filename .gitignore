@@ -14,3 +14,7 @@ dist/
 
 # Unit test / coverage reports
 .cache
+
+# Environments
+# .env
+venv/

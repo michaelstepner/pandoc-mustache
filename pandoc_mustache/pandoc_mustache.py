@@ -33,7 +33,7 @@ def prepare(doc):
 def action(elem, doc):
     """ Apply combined mustache template to all strings in document.
     """
-    if type(elem) in (Str, CodeBlock, Code) and doc.mhash is not None:
+    if type(elem) in (Str, CodeBlock, Code, RawBlock) and doc.mhash is not None:
         elem.text = doc.mrenderer.render(elem.text, doc.mhash)
         return elem
 
