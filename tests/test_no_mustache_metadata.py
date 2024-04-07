@@ -40,7 +40,7 @@ def test_blank_mustache_mapping(tmpdir):
 mustache:
 ---
 '''
-    doc['text'] = 'Hello {{place}}'
+    doc['text'] = 'Hello {{mustache}}'
 
     # Write contents to files
     with open(doc['path'].strpath, "a") as myfile:
@@ -51,4 +51,6 @@ mustache:
     output = subprocess.check_output(["pandoc", doc['path'].strpath, "--filter", "pandoc-mustache"], universal_newlines=True)
 
     # Test output
-    assert output == "<p>Hello {{place}}</p>\n"
+    # Change in behavior 2021, previously a blank meta field of mustache would silently skip filtering by pandoc-mustache
+    # however, now this is treated as a blank variable and filtering will occur.
+    assert output == "<p>Hello </p>\n"

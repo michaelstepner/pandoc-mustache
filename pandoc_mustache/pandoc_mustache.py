@@ -21,6 +21,11 @@ def prepare(doc):
     if doc.mustache_files is not None:
         doc.mustache_hashes = [yaml.load(open(file, 'r').read(), Loader=yaml.SafeLoader) for file in doc.mustache_files]
         doc.mhash = { k: v for mdict in doc.mustache_hashes for k, v in mdict.items() }  # combine list of dicts into a single dict
+    else:
+        doc.mhash = {}
+    if len(doc.metadata.content) > 0:
+        # Local variables in markdown file wins over any contained in mustache_files
+        doc.mhash.update({ k: doc.get_metadata(k) for k in doc.metadata.content })
         doc.mrenderer = pystache.Renderer(escape=lambda u: u, missing_tags='strict')
     else:
         doc.mhash = None
@@ -28,7 +33,7 @@ def prepare(doc):
 def action(elem, doc):
     """ Apply combined mustache template to all strings in document.
     """
-    if type(elem) == Str and doc.mhash is not None:
+    if type(elem) in (Str, CodeBlock, Code, RawBlock) and doc.mhash is not None:
         elem.text = doc.mrenderer.render(elem.text, doc.mhash)
         return elem
 
