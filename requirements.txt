@@ -1,4 +1,4 @@
-panflute
-pystache
-pyyaml
-future
+panflute==2.3.1
+pystache==0.6.5
+PyYAML==6.0.2
+future==1.0.0
