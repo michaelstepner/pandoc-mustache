@@ -39,3 +39,11 @@ jobs:
 
       - name: Run tests
         run: pytest
+
+      - name: Output success message
+        run: echo "✅ All tests passed with Python ${{ matrix.python }} and pandoc ${{ matrix.pandoc }}." >> $GITHUB_STEP_SUMMARY
+        if: success()
+
+      - name: Output failure message
+        run: echo "❌ Tests failed with Python ${{ matrix.python }} and pandoc ${{ matrix.pandoc }}." >> $GITHUB_STEP_SUMMARY
+        if: failure()
