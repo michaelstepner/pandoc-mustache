@@ -3,7 +3,7 @@ Pandoc filter to apply mustache templates on regular text.
 """
 from past.builtins import basestring
 from panflute import *
-import pystache, yaml
+import pystache, yaml, urllib.parse
 
 def prepare(doc):
     """ Parse metadata to obtain list of mustache templates,
@@ -30,6 +30,10 @@ def action(elem, doc):
     """
     if type(elem) == Str and doc.mhash is not None:
         elem.text = doc.mrenderer.render(elem.text, doc.mhash)
+        return elem
+
+    if type(elem) == Link and doc.mhash is not None:
+        elem.url = doc.mrenderer.render(urllib.parse.unquote(elem.url), doc.mhash)
         return elem
 
 def main(doc=None):
